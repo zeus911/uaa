@@ -17,7 +17,7 @@ package org.cloudfoundry.identity.uaa.provider.ldap;
 import org.apache.directory.api.ldap.model.constants.LdapSecurityConstants;
 import org.apache.directory.api.ldap.model.password.PasswordUtil;
 
-public class DynamicPasswordComparator implements org.springframework.security.authentication.encoding.PasswordEncoder {
+public class DynamicPasswordComparator implements org.springframework.security.crypto.password.PasswordEncoder {
 
     public DynamicPasswordComparator() {
     }
@@ -26,19 +26,18 @@ public class DynamicPasswordComparator implements org.springframework.security.a
         return PasswordUtil.compareCredentials(received, stored);
     }
 
-    @Override
-    public String encodePassword(String rawPass, Object salt) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean isPasswordValid(String encPass, String rawPass, Object salt) {
-        throw new UnsupportedOperationException();
-    }
-
     public static void main(String[] args) throws Exception {
         LdapSecurityConstants test = PasswordUtil.findAlgorithm("{sha}YaE1CJ6sVhov987e77A5db7QAPg=".getBytes());
         System.out.println(test);
     }
 
+    @Override
+    public String encode(CharSequence rawPassword) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        throw new UnsupportedOperationException();
+    }
 }

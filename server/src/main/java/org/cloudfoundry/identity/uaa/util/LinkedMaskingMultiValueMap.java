@@ -16,6 +16,7 @@ package org.cloudfoundry.identity.uaa.util;
 
 import org.springframework.util.MultiValueMap;
 
+import javax.ws.rs.NotSupportedException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -111,6 +112,16 @@ public class LinkedMaskingMultiValueMap<K, V> implements MultiValueMap<K, V>, Se
             this.targetMap.put(key, values);
         }
         values.add(value);
+    }
+
+    @Override
+    public void addAll(K key, List<? extends V> values) {
+        throw new NotSupportedException();
+    }
+
+    @Override
+    public void addAll(MultiValueMap<K, V> values) {
+        throw new NotSupportedException();
     }
 
     @Override

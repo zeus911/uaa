@@ -14,11 +14,7 @@ package org.cloudfoundry.identity.uaa.config;
 
 import org.cloudfoundry.identity.uaa.impl.config.SystemEnvironmentAccessor;
 import org.cloudfoundry.identity.uaa.impl.config.YamlServletProfileInitializer;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -28,7 +24,6 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.util.Log4jConfigurer;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.support.StandardServletEnvironment;
 
@@ -36,10 +31,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import java.util.Enumeration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.springframework.util.StringUtils.hasText;
@@ -99,7 +91,6 @@ public class YamlServletProfileInitializerTests {
         System.clearProperty("APPLICATION_CONFIG_URL");
         System.clearProperty("LOG_FILE");
         System.clearProperty("LOG_PATH");
-        Log4jConfigurer.initLogging("classpath:log4j.properties");
     }
 
     @Test

@@ -1,0 +1,4 @@
+- should use new 'PasswordEncoder' pattern (Password storage has undergone a major overhaul to provide more secure defaults and the ability to migrate how passwords are stored. The default PasswordEncoder is now DelegatingPasswordEncoder which is a non-passive change)
+- need to upgrade log4j from 1.x -> 2 (Spring 5 uses Log4j v2 (following Apache's EOL declaration for log4j 1.x) so as long as you are using Log4j v2 then Spring 5 will auto detect it and your log4j.properties)
+- look into why we have DynamicPasswordComparator throwing UnsupportedOperationException??
+

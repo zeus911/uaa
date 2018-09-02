@@ -147,11 +147,7 @@ public abstract class UaaUrlUtils {
         String[] result = new String[value.size()];
         int pos = 0;
         for (String s : value) {
-            try {
-                result[pos++] = UriUtils.decode(s, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new IllegalArgumentException(s, e);
-            }
+            result[pos++] = UriUtils.decode(s, "UTF-8");
         }
         return result;
     }

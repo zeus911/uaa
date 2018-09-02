@@ -22,7 +22,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.util.InMemoryResource;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.util.Log4jConfigurer;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -30,16 +29,9 @@ import org.yaml.snakeyaml.Yaml;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import static org.springframework.util.StringUtils.commaDelimitedListToStringArray;
-import static org.springframework.util.StringUtils.hasText;
-import static org.springframework.util.StringUtils.isEmpty;
+import static org.springframework.util.StringUtils.*;
 
 /**
  * An {@link ApplicationContextInitializer} for a web application to enable it
@@ -164,7 +156,7 @@ public class YamlServletProfileInitializer implements ApplicationContextInitiali
 
     private void applyLog4jConfiguration(ConfigurableEnvironment environment, ServletContext servletContext) {
 
-        String log4jConfigLocation = "classpath:log4j.properties";
+
 
         if (environment.containsProperty("logging.file")) {
             String location = environment.getProperty("logging.file");
@@ -183,18 +175,8 @@ public class YamlServletProfileInitializer implements ApplicationContextInitiali
                 PropertySource<?> environmentPropertySource = environment.getPropertySources().get(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
                 if ((location.startsWith("-D") && environmentPropertySource!=null && location.equals(environmentPropertySource.getProperty("LOGGING_CONFIG")))) {
                     servletContext.log("Ignoring Log Config Location: " + location + ". Location is suspect to be a Tomcat startup script environment variable");
-                } else {
-                    servletContext.log("Setting Log Config Location: " + location + " based on logging.config setting.");
-                    log4jConfigLocation = environment.getProperty("logging.config");
                 }
             }
-        }
-
-        try {
-            servletContext.log("Loading log4j config from location: " + log4jConfigLocation);
-            Log4jConfigurer.initLogging(log4jConfigLocation);
-        } catch (FileNotFoundException e) {
-            servletContext.log("Error loading log4j config from location: " + log4jConfigLocation, e);
         }
 
         MDC.put("context", servletContext.getContextPath());
